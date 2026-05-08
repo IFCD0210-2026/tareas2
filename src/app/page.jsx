@@ -22,21 +22,15 @@ export default function TaskForm() {
 
     // Aquí puedes enviar la tarea a una API o estado global
     console.log("Nueva tarea:", formData);
-    const { data, error } = await supabase.from("tareas").select("*")
+    const { error } = await supabase.from("tareas").insert({
+      titulo: formData.titulo,
+      descripcion: formData.descripcion
+    })
 
     if (error) {
       console.log("Error: ", error)
       return
     }
-
-    console.log(data)
-
-    // const { data, error } = await createClient
-    //   .from('tareas')
-    //   .insert({
-    //     titulo: formData.titulo,
-    //     descripcion: formData.descripcion,
-    //   })
 
     // Reset del formulario
     setFormData({
