@@ -5,11 +5,23 @@ import { useEffect } from "react"
 export default function Tareas() {
 
 
-    const { tareas, loading, fetchTareas, eliminarTarea } = useTareasStorage()
+    const { tareas, loading, fetchTareas, eliminarTarea, editarTarea } = useTareasStorage()
+
 
     useEffect(() => {
         fetchTareas()
     }, [])
+
+    const manejarEdicion = (idTarea) => {
+        const tituloEditado = prompt("Cambia el título")
+        const textoEditado = prompt("Cambia la descripción")
+        const nuevaTarea = {
+            titulo: tituloEditado,
+            descripcion: textoEditado,
+            id: idTarea
+        }
+        editarTarea(nuevaTarea)
+    }
 
     if (loading) return <p>Cargando...</p>
 
@@ -38,17 +50,17 @@ export default function Tareas() {
                                 </div>
 
                                 <button
-                                    // onClick={() => eliminarTarea(t.id)}
+                                    onClick={() => eliminarTarea(t.id)}
                                     className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                                 >
                                     Eliminar
                                 </button>
-                                {/* <button
-                                    onClick={() => editarTarea(t.id)}
+                                <button
+                                    onClick={() => manejarEdicion(t.id)}
                                     className="bg-amber-500 hover:bg-amber-600 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                                 >
                                     Editar
-                                </button> */}
+                                </button>
                             </div>
                         </article>
                     ))}

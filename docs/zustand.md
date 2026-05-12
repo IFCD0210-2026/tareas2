@@ -22,6 +22,8 @@ export const useTareasStorage = create((set) => ({
     // Acciones
     fetchTareas: async () => { /* ... */ },
     insertarTarea: (nuevaTarea) => { /* ... */ },
+    eliminarTarea: async (tareaId) => { /* ... */ },
+    editarTarea: async (nuevaTarea) => { /* ... */ },
 }));
 ```
 
@@ -133,6 +135,24 @@ Usuario envía el formulario (InputTarea)
     → UI se actualiza instantáneamente (sin recargar)
 ```
 
+```
+Usuario pulsa "Eliminar"
+    → eliminarTarea(id)                → set({ loading: true })
+    → supabase.delete().eq("id", id)   → borra en la BD
+    → set({ tareas: tareas.filter(...) }) → elimina del store local
+    → UI se actualiza instantáneamente
+```
+
+```
+Usuario pulsa "Editar"
+    → manejarEdicion(id)               → prompt() recoge título y descripción
+    → editarTarea({ titulo, descripcion, id })
+    → set({ loading: true })
+    → supabase.update({...}).eq("id", id) → actualiza en la BD
+    → set({ tareas: tareas.map(...) }) → reemplaza en el store local
+    → UI se actualiza instantáneamente
+```
+
 ---
 
 ## Resumen rápido
@@ -144,3 +164,5 @@ Usuario envía el formulario (InputTarea)
 | `set(state => ({...}))` | Actualiza basándose en el estado anterior |
 | `useTareasStorage()` | Hook para usar el store en un componente |
 | `persist(...)` | Guarda el estado en localStorage automáticamente |
+| `eliminarTarea(id)` | Borra en Supabase y filtra el array local |
+| `editarTarea({ id, titulo, descripcion })` | Actualiza en Supabase y reemplaza el objeto en el array local |

@@ -84,6 +84,20 @@ const { error } = await supabase
 
 `.eq()` es el equivalente a `WHERE campo = valor`. Hay también `.gt()`, `.lt()`, `.like()`, etc.
 
+### Actualizar un registro
+
+```js
+const { error } = await supabase
+    .from("tareas")
+    .update({
+        titulo: "Nuevo título",
+        descripcion: "Nueva descripción"
+    })
+    .eq("id", idTarea);   // WHERE id = idTarea
+```
+
+Solo pasas los campos que quieres cambiar. Los demás quedan intactos en la BD.
+
 ---
 
 ## Manejo de errores
@@ -156,4 +170,5 @@ Estas variables van en `.env.local` (no se sube al repositorio). En producción 
 | Leer con filtro | `.from("tabla").select("*").eq("campo", valor)` |
 | Insertar y obtener el resultado | `.from("tabla").insert({...}).select()` |
 | Eliminar | `.from("tabla").delete().eq("id", id)` |
+| Actualizar campos | `.from("tabla").update({campo: valor}).eq("id", id)` |
 | Comprobar errores | `if (error) { return }` antes de usar `data` |
