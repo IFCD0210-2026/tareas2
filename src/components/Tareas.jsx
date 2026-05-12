@@ -38,13 +38,13 @@ export default function Tareas() {
                                 </div>
 
                                 <button
-                                    onClick={() => eliminarTarea(t.id)}
+                                    // onClick={() => eliminarTarea(t.id)}
                                     className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                                 >
                                     Eliminar
                                 </button>
                                 {/* <button
-                                    onClick={() => eliminarTarea(t.id)}
+                                    onClick={() => editarTarea(t.id)}
                                     className="bg-amber-500 hover:bg-amber-600 text-white px-3 py-2 rounded-lg text-sm transition-colors"
                                 >
                                     Editar
